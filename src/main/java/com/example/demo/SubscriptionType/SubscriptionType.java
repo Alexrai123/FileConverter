@@ -1,15 +1,21 @@
-package com.example.demo.Model;
+package com.example.demo.SubscriptionType;
 
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.example.demo.Users.Users;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
 @Table(name = "subscriptiontype")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class SubscriptionType {
 
     @Id

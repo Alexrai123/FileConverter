@@ -1,0 +1,87 @@
+USE PPAW;
+
+-- Table for SubscriptionType with an INT primary key
+CREATE TABLE SubscriptionType (
+    subscription_type_id INT AUTO_INCREMENT PRIMARY KEY,
+    type_name VARCHAR(50) NOT NULL,
+    description TEXT,
+    price DECIMAL(10, 2) NOT NULL,
+    file_size_limit INT NOT NULL,
+    file_number_limit_per_day INT NOT NULL
+);
+
+-- Users table with user_id as INT
+CREATE TABLE Users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(100) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    subscription_type_id INT NOT NULL,
+    subscription_start_date DATE NOT NULL,
+    FOREIGN KEY (subscription_type_id) REFERENCES SubscriptionType(subscription_type_id)
+);
+
+-- Settings table with user_id as INT to match Users table
+CREATE TABLE Settings (
+    setting_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    default_source_format VARCHAR(10),
+    default_target_format VARCHAR(10),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);
+
+-- Files table with user_id as INT to match Users table
+CREATE TABLE Files (
+    file_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    file_name VARCHAR(255) NOT NULL,
+    file_size INT,
+    file_type VARCHAR(10),
+    upload_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);
+
+-- Conversions table with file_id as INT to match Files table
+CREATE TABLE Conversions (
+    conversion_id INT AUTO_INCREMENT PRIMARY KEY,
+    file_id INT NOT NULL,
+    source_format VARCHAR(10) NOT NULL,
+    target_format VARCHAR(10) NOT NULL,
+    status VARCHAR(50) DEFAULT 'pending',
+    converted_file_path VARCHAR(255),
+    conversion_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (file_id) REFERENCES Files(file_id)
+);
+
+////////////////////////////////////////////////////////////
+
+-- Insert data into SubscriptionType table
+INSERT INTO SubscriptionType (type_name, description, price, file_size_limit, file_number_limit_per_day)
+VALUES
+    ('Basic', 'Basic subscription plan', 9.99, 5000, 10),
+    ('Premium', 'Premium subscription plan', 19.99, 10000, 50);
+
+-- Insert data into Users table
+INSERT INTO Users (username, email, password, subscription_type_id, subscription_start_date)
+VALUES
+    ('testuser1', 'testuser1@example.com', '123', 1, '2024-01-01'),  -- Assuming Basic subscription is with id 1
+    ('testuser2', 'testuser2@example.com', '456', 2, '2024-02-15');  -- Assuming Premium subscription is with id 2
+
+-- Insert data into Settings table
+INSERT INTO Settings (user_id, default_source_format, default_target_format, created_at)
+VALUES
+    (1, 'txt', 'pdf', CURRENT_TIMESTAMP),  -- testuser1
+    (2, 'doc', 'txt', CURRENT_TIMESTAMP);  -- testuser2
+
+-- Insert data into Files table
+INSERT INTO Files (user_id, file_name, file_size, file_type, upload_date)
+VALUES
+    (1, 'document1.txt', 1024, 'txt', CURRENT_TIMESTAMP),  -- testuser1
+    (2, 'file2.doc', 2048, 'doc', CURRENT_TIMESTAMP);  -- testuser2
+
+-- Insert data into Conversions table
+INSERT INTO Conversions (file_id, source_format, target_format, status, converted_file_path, conversion_date)
+VALUES
+    (1, 'txt', 'pdf', 'completed', '/converted/document1.pdf', CURRENT_TIMESTAMP),  -- document1.txt
+    (2, 'doc', 'txt', 'pending', NULL, CURRENT_TIMESTAMP);  -- file2.doc

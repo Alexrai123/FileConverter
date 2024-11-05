@@ -1,14 +1,20 @@
-package com.example.demo.Model;
+package com.example.demo.Conversions;
 
+import com.example.demo.Files.Files;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import java.util.UUID;
 
 @Entity
 @Table(name = "Conversions")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Conversions {
 
     @Id
@@ -25,7 +31,7 @@ public class Conversions {
     @Column(nullable = false, length = 10)
     private String targetFormat;
 
-    @Column(length = 50, columnDefinition = "varchar(50) default 'pending'")
+    @Column(length = 50, columnDefinition = "varchar(50) default 'pending'", nullable = false)
     private String status;
 
     @Column(length = 255)
