@@ -1,14 +1,21 @@
-package com.example.demo.Model;
+package com.example.demo.Users;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.example.demo.SubscriptionType.SubscriptionType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Date;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "users")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Users {
 
     @Id

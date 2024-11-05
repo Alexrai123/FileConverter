@@ -1,0 +1,88 @@
+USE PPAW;
+
+-- Table for SubscriptionType with an INT primary key (optional; you can change it to UUID as well)
+CREATE TABLE SubscriptionType (
+    subscription_type_id CHAR(36) PRIMARY KEY,
+    type_name VARCHAR(50) NOT NULL,
+    description TEXT,
+    price DECIMAL(10, 2) NOT NULL,
+    file_size_limit INT NOT NULL,
+    file_number_limit_per_day INT NOT NULL
+);
+
+-- Users table with user_id as CHAR(36) for UUID
+CREATE TABLE Users (
+    user_id CHAR(36) PRIMARY KEY,
+    username VARCHAR(100) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    subscription_type_id CHAR(36) NOT NULL,
+    subscription_start_date DATE NOT NULL,
+    FOREIGN KEY (subscription_type_id) REFERENCES SubscriptionType(subscription_type_id)
+);
+
+-- Settings table with user_id as CHAR(36) to match Users table
+CREATE TABLE Settings (
+    setting_id CHAR(36) PRIMARY KEY,
+    user_id CHAR(36) NOT NULL,
+    default_source_format VARCHAR(10),
+    default_target_format VARCHAR(10),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);
+
+-- Files table with user_id as CHAR(36) to match Users table
+CREATE TABLE Files (
+    file_id CHAR(36) PRIMARY KEY,
+    user_id CHAR(36) NOT NULL,
+    file_name VARCHAR(255) NOT NULL,
+    file_size INT,
+    file_type VARCHAR(10),
+    upload_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);
+
+-- Conversions table with file_id as CHAR(36) to match Files table
+CREATE TABLE Conversions (
+    conversion_id CHAR(36) PRIMARY KEY,
+    file_id CHAR(36) NOT NULL,
+    source_format VARCHAR(10) NOT NULL,
+    target_format VARCHAR(10) NOT NULL,
+    status VARCHAR(50) DEFAULT 'pending',
+    converted_file_path VARCHAR(255),
+    conversion_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (file_id) REFERENCES Files(file_id)
+);
+
+////////////////////////////////////////////////////////////
+
+-- Insert data into SubscriptionType table
+INSERT INTO SubscriptionType (subscription_type_id, type_name, description, price, file_size_limit, file_number_limit_per_day)
+VALUES
+    (Basic', 'Basic subscription plan', 9.99, 5000, 10),
+    (Premium', 'Premium subscription plan', 19.99, 10000, 50);
+
+-- Insert data into Users table
+INSERT INTO Users (user_id, username, email, password, subscription_type_id, subscription_start_date)
+VALUES
+    (testuser1', 'testuser1@example.com', '123', '1a19b820-9ab4-11ef-b353-00155d88c3c1', '2024-01-01'),
+    ('testuser2', 'testuser2@example.com', '456', '1a1a0b5d-9ab4-11ef-b353-00155d88c3c1', '2024-02-15');
+
+-- Insert data into Settings table
+INSERT INTO Settings (setting_id, user_id, default_source_format, default_target_format, created_at)
+VALUES
+    ('txt', 'pdf', CURRENT_TIMESTAMP),
+    ('doc', 'txt', CURRENT_TIMESTAMP);
+
+-- Insert data into Files table
+INSERT INTO Files (file_id, user_id, file_name, file_size, file_type, upload_date)
+VALUES
+    ('document1.txt', 1024, 'txt', CURRENT_TIMESTAMP),
+    ('file2.doc', 2048, 'doc', CURRENT_TIMESTAMP);
+
+-- Insert data into Conversions table
+INSERT INTO Conversions (conversion_id, file_id, source_format, target_format, status, converted_file_path, conversion_date)
+VALUES
+    ('txt', 'pdf', 'completed', '/converted/document1.pdf', CURRENT_TIMESTAMP),
+    ('doc', 'txt', 'pending', NULL, CURRENT_TIMESTAMP);
+

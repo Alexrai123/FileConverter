@@ -1,14 +1,20 @@
-package com.example.demo.Model;
+package com.example.demo.Files;
 
+import com.example.demo.Users.Users;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import java.util.UUID;
 
 @Entity
 @Table(name = "Files")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Files {
 
     @Id
@@ -22,6 +28,7 @@ public class Files {
     @Column(nullable = false, length = 255)
     private String fileName;
 
+    @Column(nullable = false)
     private int fileSize;
 
     @Column(length = 10)
