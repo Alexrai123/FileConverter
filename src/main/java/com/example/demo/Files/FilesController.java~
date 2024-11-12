@@ -3,7 +3,6 @@ package com.example.demo.Files;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -19,12 +18,7 @@ public class FilesController {
 
 
     /////////////////////////////////////////////////////////////
-    @GetMapping("/test")
-    public String getFiles(Model model){
-        List<Files> files = filesService.getAll();
-        model.addAttribute("files", files);
-        return "files";
-    }
+
     /////////////////////////////////////////////////////////////
     @GetMapping
     public List<Files> getAll() {

@@ -2,6 +2,7 @@ package com.example.demo.Users;
 
 import com.example.demo.SubscriptionType.SubscriptionType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,7 +34,7 @@ public class Users {
 
     @ManyToOne
     @JoinColumn(name = "subscription_type_id", nullable = false)
-    @JsonIgnoreProperties("users")
+    @JsonManagedReference
     private SubscriptionType subscriptionType;
 
     @Column(nullable = false, name = "subscription_start_date")

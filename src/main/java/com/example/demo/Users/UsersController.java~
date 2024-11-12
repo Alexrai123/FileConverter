@@ -50,7 +50,7 @@ public class UsersController {
     }
 
     @PutMapping("/editUser")
-    public String updateUser(@ModelAttribute("userDTO") UsersDTO userDTO) {
+    public String updateUser(@ModelAttribute("usersDTO") UsersDTO userDTO) {
         usersService.updateUser(userDTO);
         return "redirect:/users/test";
     }

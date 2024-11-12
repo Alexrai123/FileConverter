@@ -94,11 +94,6 @@ public class UsersService {
         usersRepository.delete(user);
     }
 
-    public void deleteUserByEmail(String email) {
-        Users user = usersRepository.findByEmail(email)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with email: " + email));
-        usersRepository.delete(user);
-    }
 
 
 }

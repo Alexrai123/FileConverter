@@ -5,7 +5,6 @@
 </head>
 <body>
 <h1>Users</h1>
-<a th:href="@{/users/add}">Add</a>
 <table>
     <thead>
     <tr>
@@ -24,7 +23,7 @@
         <td th:text="${user.subscriptionType}">Subscription Type</td>
         <td th:text="${#dates.format(user.subscriptionStartDate, 'yyyy-MM-dd')}">Subscription Start Date</td>
         <td>
-
+            <a th:href="@{/users/add}">Add</a>
             <a th:href="@{/users/edit/{email}(email=${user.email})}">Edit</a>
             <a th:href="@{/users/delete/{email}(email=${user.email})}">Delete</a>
         </td>

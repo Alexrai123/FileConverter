@@ -24,6 +24,11 @@
         <td th:text="${conversion.status}">Status</td>
         <td th:text="${conversion.convertedFilePath}">Converted File Path</td>
         <td th:text="${#dates.format(conversion.conversionDate, 'yyyy-MM-dd HH:mm')}">Conversion Date</td>
+        <td>
+            <button th:onclick="'/users/add'">Add</button>
+            <button th:onclick="'/users/edit/' + ${user.id}">Edit</button>
+            <button th:onclick="'/users/delete/' + ${user.id}">Delete</button>
+        </td>
     </tr>
     </tbody>
 </table>

@@ -1,7 +1,6 @@
 package com.example.demo.Users;
 
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -19,7 +18,6 @@ public class UsersDTO {
 
     private String subscriptionType;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date subscriptionStartDate;
 
 }

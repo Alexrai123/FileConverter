@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Files</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<h1>Files</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>File Name</th>
+        <th>File Size (KB)</th>
+        <th>File Type</th>
+        <th>Upload Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="file : ${files}">
+        <td th:text="${file.fileName}">File Name</td>
+        <td th:text="${file.fileSize}">File Size</td>
+        <td th:text="${file.fileType}">File Type</td>
+        <td th:text="${#dates.format(file.uploadDate, 'yyyy-MM-dd')}">Upload Date</td>
+        <td>
+            <button th:onclick="'/users/add'">Add</button>
+            <button th:onclick="'/users/edit/' + ${user.id}">Edit</button>
+            <button th:onclick="'/users/delete/' + ${user.id}">Delete</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

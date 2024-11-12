@@ -21,11 +21,6 @@
         <td th:text="${setting.defaultSourceFormat}">Default Source Format</td>
         <td th:text="${setting.defaultTargetFormat}">Default Target Format</td>
         <td th:text="${#dates.format(setting.createdAt, 'yyyy-MM-dd HH:mm')}">Created At</td>
-        <td>
-            <button th:onclick="'/users/add'">Add</button>
-            <button th:onclick="'/users/edit/' + ${user.id}">Edit</button>
-            <button th:onclick="'/users/delete/' + ${user.id}">Delete</button>
-        </td>
     </tr>
     </tbody>
 </table>

@@ -23,6 +23,7 @@ public class SubscriptionTypeController {
         model.addAttribute("subscriptionTypes", subscriptionTypes);
         return "subscriptionTypes";
     }
+
     ////////////////////////////////////////////////////////////
 
     @GetMapping

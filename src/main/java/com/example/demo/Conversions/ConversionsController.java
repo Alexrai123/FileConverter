@@ -2,6 +2,7 @@ package com.example.demo.Conversions;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -20,6 +21,15 @@ public class ConversionsController {
         return conversionsService.getAll();
     }
 
+    /// /////////////////////////////
+    @GetMapping("/test")
+    public String getConversions(Model model) {
+        List<Conversions> conversions = conversionsService.getAll();
+        model.addAttribute("conversions", conversions);
+        return "conversions";
+    }
+    /// //////////////////////////////
+
     @GetMapping("/{idConversion}")
     public Conversions getOne(@PathVariable Integer idConversion) {
         Optional<Conversions> conversion = Optional.ofNullable(conversionsService.getOne(idConversion));
@@ -28,6 +38,13 @@ public class ConversionsController {
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conversion not found");
         }
+    }
+
+    @GetMapping("/conversions")
+    public String listConversions(Model model){
+        List<Conversions> conversions = conversionsService.getAll();
+        model.addAttribute("conversions", conversions);
+        return "conversions";
     }
 
     @PostMapping

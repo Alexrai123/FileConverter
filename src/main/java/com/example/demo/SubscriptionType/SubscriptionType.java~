@@ -2,7 +2,6 @@ package com.example.demo.SubscriptionType;
 
 
 import com.example.demo.Users.Users;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -39,7 +38,7 @@ public class SubscriptionType {
     @Column(nullable = false)
     private int fileNumberLimitPerDay;
 
-    @JsonBackReference
+    @JsonIgnore
     @OneToMany(mappedBy = "subscriptionType")
     private List<Users> users;
 }
