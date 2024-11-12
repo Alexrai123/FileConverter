@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Subscription Types</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<h1>Subscription Types</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Type Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>File Size Limit (MB)</th>
+        <th>File Number Limit Per Day</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="subscriptionType : ${subscriptionTypes}">
+        <td th:text="${subscriptionType.typeName}">Type Name</td>
+        <td th:text="${subscriptionType.description}">Description</td>
+        <td th:text="${subscriptionType.price}">Price</td>
+        <td th:text="${subscriptionType.fileSizeLimit}">File Size Limit</td>
+        <td th:text="${subscriptionType.fileNumberLimitPerDay}">File Number Limit</td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
