@@ -38,6 +38,6 @@ public class Users {
     @Temporal(TemporalType.DATE)
     private Date subscriptionStartDate;
 
-    @Column(name = "nr_of_files_converted_per_month")
+    @Column(name = "nrOfFilesConvertedPerMonth")
     private Integer nrOfFilesConvertedPerMonth;
 }

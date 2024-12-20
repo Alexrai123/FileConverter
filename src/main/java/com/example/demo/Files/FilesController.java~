@@ -3,23 +3,20 @@ package com.example.demo.Files;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
-//@RestController
-@Controller
+@RestController
+//@Controller
 @RequiredArgsConstructor
 @RequestMapping("/files")
 public class FilesController {
 
     private final FilesService filesService;
 
-
-    /////////////////////////////////////////////////////////////
-
-    /////////////////////////////////////////////////////////////
     @GetMapping
     public List<Files> getAll() {
         return filesService.getAll();

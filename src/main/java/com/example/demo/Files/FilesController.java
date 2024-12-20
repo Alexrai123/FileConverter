@@ -9,26 +9,22 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
-//@RestController
-@Controller
+@RestController
+//@Controller
 @RequiredArgsConstructor
 @RequestMapping("/files")
 public class FilesController {
 
     private final FilesService filesService;
 
-
-    /////////////////////////////////////////////////////////////
-    @GetMapping("/test")
-    public String getFiles(Model model){
-        List<Files> files = filesService.getAll();
-        model.addAttribute("files", files);
-        return "files";
-    }
-    /////////////////////////////////////////////////////////////
-    @GetMapping
+    @GetMapping("/all")
     public List<Files> getAll() {
         return filesService.getAll();
+    }
+
+    @GetMapping("/allDTO")
+    public List<FilesDTO> getAllDTO() {
+        return filesService.getAllDTO();
     }
 
     @GetMapping("/{idFile}")

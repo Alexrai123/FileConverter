@@ -24,7 +24,7 @@ public class SubscriptionType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer subscription_type_id;
 
-    @Column(nullable = false, length = 50)
+    @Column(name = "type_name", nullable = false, length = 50)
     private String typeName;
 
     @Column(columnDefinition = "TEXT")
@@ -33,10 +33,10 @@ public class SubscriptionType {
     @Column(nullable = false)
     private double price;
 
-    @Column(nullable = false)
+    @Column(name = "file_size_limit", nullable = false)
     private int fileSizeLimit;
 
-    @Column(nullable = false)
+    @Column(name = "file_number_limit_per_day", nullable = false)
     private int fileNumberLimitPerDay;
 
     @JsonBackReference

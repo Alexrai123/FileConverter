@@ -22,8 +22,6 @@ public class ConversionsDTO {
 
     private String status;
 
-    private String convertedFilePath;
-
     private Date conversionDate;
 
 }

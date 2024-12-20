@@ -7,30 +7,20 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//@RestController
-@Controller
+@RestController
+//@Controller
 @RequiredArgsConstructor
 @RequestMapping("/subscriptionTypes")
 public class SubscriptionTypeController {
 
     private final SubscriptionTypeService subscriptionTypeService;
 
-
-    /////////////////////////////////////////////////////////////
-    @GetMapping("/test")
-    public String getSubscriptionTypes(Model model) {
-        List<SubscriptionType> subscriptionTypes = subscriptionTypeService.getAll();
-        model.addAttribute("subscriptionTypes", subscriptionTypes);
-        return "subscriptionTypes";
-    }
-    ////////////////////////////////////////////////////////////
-
-    @GetMapping
+    @GetMapping("/all")
     public List<SubscriptionType> getAll() {
         return subscriptionTypeService.getAll();
     }
 
-    @GetMapping("/all")
+    @GetMapping("/allDTO")
     public List<SubscriptionTypeDTO> getAllDTO() {
         return subscriptionTypeService.getAllDTO();
     }

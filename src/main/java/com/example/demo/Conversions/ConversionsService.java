@@ -23,7 +23,6 @@ public class ConversionsService {
                 .sourceFormat(conversionsDTO.getSourceFormat())
                 .targetFormat(conversionsDTO.getTargetFormat())
                 .status(conversionsDTO.getStatus())
-                .convertedFilePath(conversionsDTO.getConvertedFilePath())
                 .conversionDate(conversionsDTO.getConversionDate())
                 .build());
     }
@@ -36,12 +35,23 @@ public class ConversionsService {
         return conversionsRepository.findAll();
     }
 
+    public List<ConversionsDTO> getAllDTO() {
+        return conversionsRepository.findAll().stream()
+                .map(conversion -> new ConversionsDTO(
+                        conversion.getFile().getFileName(),
+                        conversion.getSourceFormat(),
+                        conversion.getTargetFormat(),
+                        conversion.getStatus(),
+                        conversion.getConversionDate()
+                ))
+                .toList();
+    }
+
     public Conversions update(Conversions conversionToUpdate) {
         Conversions conversion = conversionsRepository.findById(conversionToUpdate.getConversionId()).orElse(new Conversions());
         conversion.setSourceFormat(conversionToUpdate.getSourceFormat());
         conversion.setTargetFormat(conversionToUpdate.getTargetFormat());
         conversion.setStatus(conversionToUpdate.getStatus());
-        conversion.setConvertedFilePath(conversionToUpdate.getConvertedFilePath());
         conversion.setConversionDate(conversionToUpdate.getConversionDate());
         return conversionsRepository.save(conversion);
     }

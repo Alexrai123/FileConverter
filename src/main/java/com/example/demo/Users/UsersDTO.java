@@ -11,8 +11,6 @@ import java.util.Date;
 @Builder
 public class UsersDTO {
 
-    private String username;
-
     private String email;
 
     private String password;
@@ -21,5 +19,7 @@ public class UsersDTO {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date subscriptionStartDate;
+
+    private Integer nrOfFilesConvertedPerMonth;
 
 }
