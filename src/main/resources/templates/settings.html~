@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Settings</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<h1>Settings</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Default Source Format</th>
+        <th>Default Target Format</th>
+        <th>Created At</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="setting : ${settings}">
+        <td th:text="${setting.defaultSourceFormat}">Default Source Format</td>
+        <td th:text="${setting.defaultTargetFormat}">Default Target Format</td>
+        <td th:text="${#dates.format(setting.createdAt, 'yyyy-MM-dd HH:mm')}">Created At</td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

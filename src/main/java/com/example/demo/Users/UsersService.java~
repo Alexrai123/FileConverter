@@ -24,7 +24,6 @@ public class UsersService {
                 .password(user.getPassword())
                 .subscriptionType(subscriptionTypeRepository.findByTypeName(user.getSubscriptionType()).orElseThrow(() -> new EntityNotFoundException("Subscription type not found")))
                 .subscriptionStartDate(user.getSubscriptionStartDate())
-                .nrOfFilesConvertedPerMonth(user.getNrOfFilesConvertedPerMonth())
                 .build());
 
     }
@@ -39,8 +38,7 @@ public class UsersService {
                         user.getEmail(),
                         user.getPassword(),
                         user.getSubscriptionType().getTypeName(),
-                        user.getSubscriptionStartDate(),
-                        user.getNrOfFilesConvertedPerMonth()
+                        user.getSubscriptionStartDate()
                 ))
                 .orElseThrow(() -> new NoSuchElementException("User not found with id: " + id));
     }
@@ -51,7 +49,7 @@ public class UsersService {
 
     public List<UsersDTO> getAllDTO(){
         return usersRepository.findAll().stream()
-                .map(user -> new UsersDTO(user.getEmail(), user.getPassword(), user.getSubscriptionType().getTypeName(), user.getSubscriptionStartDate(), user.getNrOfFilesConvertedPerMonth()))
+                .map(user -> new UsersDTO(user.getEmail(), user.getPassword(), user.getSubscriptionType().getTypeName(), user.getSubscriptionStartDate()))
                 .toList();
     }
 
@@ -61,8 +59,7 @@ public class UsersService {
                         user.getEmail(),
                         user.getPassword(),
                         user.getSubscriptionType().getTypeName(),
-                        user.getSubscriptionStartDate(),
-                        user.getNrOfFilesConvertedPerMonth()
+                        user.getSubscriptionStartDate()
                 ))
                 .orElseThrow(() -> new NoSuchElementException("User not found with email: " + email));
     }
@@ -73,7 +70,6 @@ public class UsersService {
         user.setPassword(userToUpdate.getPassword());
         user.setSubscriptionType(userToUpdate.getSubscriptionType());
         user.setSubscriptionStartDate(userToUpdate.getSubscriptionStartDate());
-        user.setNrOfFilesConvertedPerMonth(userToUpdate.getNrOfFilesConvertedPerMonth());
         return usersRepository.save(user);
     }
 
@@ -84,7 +80,6 @@ public class UsersService {
         user.setSubscriptionType(subscriptionTypeRepository.findByTypeName(userDTO.getSubscriptionType())
                 .orElseThrow(() -> new EntityNotFoundException("Subscription type not found")));
         user.setSubscriptionStartDate(userDTO.getSubscriptionStartDate());
-        user.setNrOfFilesConvertedPerMonth(userDTO.getNrOfFilesConvertedPerMonth());
         usersRepository.save(user);
     }
 

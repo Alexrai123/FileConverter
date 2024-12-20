@@ -19,7 +19,6 @@ public class Conversions {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "conversion_id")
     private Integer conversionId;
 
     @ManyToOne

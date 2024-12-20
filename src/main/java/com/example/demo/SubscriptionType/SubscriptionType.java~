@@ -24,7 +24,7 @@ public class SubscriptionType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer subscription_type_id;
 
-    @Column(name = "type_name", nullable = false, length = 50)
+    @Column(name = "typeName", nullable = false, length = 50)
     private String typeName;
 
     @Column(columnDefinition = "TEXT")

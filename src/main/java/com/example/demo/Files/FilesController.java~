@@ -17,14 +17,9 @@ public class FilesController {
 
     private final FilesService filesService;
 
-    @GetMapping("/all")
+    @GetMapping
     public List<Files> getAll() {
         return filesService.getAll();
-    }
-
-    @GetMapping("/allDTO")
-    public List<FilesDTO> getAllDTO() {
-        return filesService.getAllDTO();
     }
 
     @GetMapping("/{idFile}")

@@ -30,6 +30,12 @@ public class FilesService {
         return filesRepository.findAll();
     }
 
+    public List<FilesDTO> getAllDTO() {
+        return filesRepository.findAll().stream()
+                .map(file -> new FilesDTO(file.getFileName(), file.getFileSize(), file.getFileType(), file.getUploadDate()))
+                .toList();
+    }
+
     public Files update(Files fileToUpdate) {
         Files file = filesRepository.findById(fileToUpdate.getFileId()).orElse(new Files());
         file.setFileName(fileToUpdate.getFileName());

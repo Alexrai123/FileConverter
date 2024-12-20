@@ -38,6 +38,13 @@ public class ConversionsController {
         }
     }
 
+    @GetMapping("/conversions")
+    public String listConversions(Model model){
+        List<Conversions> conversions = conversionsService.getAll();
+        model.addAttribute("conversions", conversions);
+        return "conversions";
+    }
+
     @PostMapping
     public Conversions create(@RequestBody ConversionsDTO conversion) {
         return conversionsService.create(conversion);

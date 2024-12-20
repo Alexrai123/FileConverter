@@ -23,7 +23,6 @@ public class SubscriptionTypeService {
                 .build());
     }
 
-
     public SubscriptionType getOne(Integer idSubscriptionType) {
         return subscriptionTypeRepository.findById(idSubscriptionType).orElseThrow(() -> new EntityNotFoundException("Subscription type not found"));
     }

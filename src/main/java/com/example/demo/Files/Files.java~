@@ -19,6 +19,7 @@ public class Files {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "file_Id")
     private Integer fileId;
 
     @ManyToOne

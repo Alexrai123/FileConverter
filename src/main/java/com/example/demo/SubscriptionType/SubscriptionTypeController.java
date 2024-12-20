@@ -1,24 +1,26 @@
 package com.example.demo.SubscriptionType;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+//@Controller
 @RequiredArgsConstructor
 @RequestMapping("/subscriptionTypes")
 public class SubscriptionTypeController {
 
     private final SubscriptionTypeService subscriptionTypeService;
 
-
-    @GetMapping()
+    @GetMapping("/all")
     public List<SubscriptionType> getAll() {
         return subscriptionTypeService.getAll();
     }
 
-    @GetMapping("/all")
+    @GetMapping("/allDTO")
     public List<SubscriptionTypeDTO> getAllDTO() {
         return subscriptionTypeService.getAllDTO();
     }

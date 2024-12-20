@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Users</title>
+</head>
+<body>
+<h1>Users</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>Subscription Type</th>
+        <th>Subscription Start Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.username}">Username</td>
+        <td th:text="${user.email}">Email</td>
+        <td th:text="${user.password}">Password</td>
+        <td th:text="${user.subscriptionType}">Subscription Type</td>
+        <td th:text="${#dates.format(user.subscriptionStartDate, 'yyyy-MM-dd')}">Subscription Start Date</td>
+        <td>
+            <a th:href="@{/users/add}">Add</a>
+            <a th:href="@{/users/edit/{email}(email=${user.email})}">Edit</a>
+            <a th:href="@{/users/delete/{email}(email=${user.email})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit User</title>
+</head>
+<body>
+<h1>Edit User</h1>
+<div class="container">
+    <form th:action="@{/users/editUser/{email} (email=${user.email})}" th:object="${user}" method="POST">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" th:field="*{username}" required />
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" th:field="*{email}" required />
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" th:field="*{password}" required />
+        </div>
+        <div>
+            <label for="subscriptionType">Subscription Type:</label>
+            <input type="text" id="subscriptionType" name="subscriptionType" th:field="*{subscriptionType}" required />
+        </div>
+        <div>
+            <label for="subscriptionStartDate">Subscription Start Date:</label>
+            <input type="date" id="subscriptionStartDate" name="subscriptionStartDate" th:field="*{subscriptionStartDate}" required />
+        </div>
+        <button type="submit">Save Changes</button>
+        <a th:href="@{/users/test}">Cancel</a>
+    </form>
+</div>
+</body>
+</html>
