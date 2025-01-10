@@ -19,11 +19,16 @@ public class UsersService {
 
     public Users create(UsersDTO user) {
 
+        if (usersRepository.findByEmail(user.getEmail()).isPresent()) {
+            throw new IllegalArgumentException("Email already in use");
+        }
+
         return usersRepository.save(Users.builder()
                 .email(user.getEmail())
                 .password(user.getPassword())
                 .subscriptionType(subscriptionTypeRepository.findByTypeName(user.getSubscriptionType()).orElseThrow(() -> new EntityNotFoundException("Subscription type not found")))
                 .subscriptionStartDate(user.getSubscriptionStartDate())
+                .nrOfFilesConvertedPerMonth(user.getNrOfFilesConvertedPerMonth())
                 .build());
 
     }
@@ -38,20 +43,35 @@ public class UsersService {
                         user.getEmail(),
                         user.getPassword(),
                         user.getSubscriptionType().getTypeName(),
-                        user.getSubscriptionStartDate()
+                        user.getSubscriptionType().getPrice(),
+                        user.getSubscriptionType().getFileSizeLimit(),
+                        user.getSubscriptionType().getFileNumberLimitPerDay(),
+                        user.getSubscriptionStartDate(),
+                        user.getNrOfFilesConvertedPerMonth()
                 ))
                 .orElseThrow(() -> new NoSuchElementException("User not found with id: " + id));
     }
+
 
     public List<Users> getAll() {
         return usersRepository.findAll();
     }
 
-    public List<UsersDTO> getAllDTO(){
+    public List<UsersDTO> getAllDTO() {
         return usersRepository.findAll().stream()
-                .map(user -> new UsersDTO(user.getEmail(), user.getPassword(), user.getSubscriptionType().getTypeName(), user.getSubscriptionStartDate()))
+                .map(user -> new UsersDTO(
+                        user.getEmail(),
+                        user.getPassword(),
+                        user.getSubscriptionType().getTypeName(),
+                        user.getSubscriptionType().getPrice(),
+                        user.getSubscriptionType().getFileSizeLimit(),
+                        user.getSubscriptionType().getFileNumberLimitPerDay(),
+                        user.getSubscriptionStartDate(),
+                        user.getNrOfFilesConvertedPerMonth()
+                ))
                 .toList();
     }
+
 
     public UsersDTO getUserByEmail(String email) {
         return usersRepository.findByEmail(email)
@@ -59,9 +79,19 @@ public class UsersService {
                         user.getEmail(),
                         user.getPassword(),
                         user.getSubscriptionType().getTypeName(),
-                        user.getSubscriptionStartDate()
+                        user.getSubscriptionType().getPrice(),
+                        user.getSubscriptionType().getFileSizeLimit(),
+                        user.getSubscriptionType().getFileNumberLimitPerDay(),
+                        user.getSubscriptionStartDate(),
+                        user.getNrOfFilesConvertedPerMonth()
                 ))
-                .orElseThrow(() -> new NoSuchElementException("User not found with email: " + email));
+                .orElseThrow(() -> new EntityNotFoundException("User not found with email: " + email));
+    }
+
+
+    public Users findByEmail(String email) {
+        return usersRepository.findByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with email: " + email));
     }
 
     public Users update(Users userToUpdate) {
@@ -70,6 +100,7 @@ public class UsersService {
         user.setPassword(userToUpdate.getPassword());
         user.setSubscriptionType(userToUpdate.getSubscriptionType());
         user.setSubscriptionStartDate(userToUpdate.getSubscriptionStartDate());
+        user.setNrOfFilesConvertedPerMonth(userToUpdate.getNrOfFilesConvertedPerMonth());
         return usersRepository.save(user);
     }
 
@@ -80,6 +111,7 @@ public class UsersService {
         user.setSubscriptionType(subscriptionTypeRepository.findByTypeName(userDTO.getSubscriptionType())
                 .orElseThrow(() -> new EntityNotFoundException("Subscription type not found")));
         user.setSubscriptionStartDate(userDTO.getSubscriptionStartDate());
+        user.setNrOfFilesConvertedPerMonth(userDTO.getNrOfFilesConvertedPerMonth());
         usersRepository.save(user);
     }
 
@@ -92,6 +124,27 @@ public class UsersService {
         Users user = usersRepository.findByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with email: " + email));
         usersRepository.delete(user);
+    }
+
+    public void incrementFilesConverted(String email) {
+        Users user = usersRepository.findByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with email: " + email));
+        user.setNrOfFilesConvertedPerMonth(user.getNrOfFilesConvertedPerMonth() + 1);
+        usersRepository.save(user);
+    }
+
+    public void decrementFilesConverted(String email) {
+        Users user = usersRepository.findByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with email: " + email));
+        user.setNrOfFilesConvertedPerMonth(user.getNrOfFilesConvertedPerMonth() - 1);
+        usersRepository.save(user);
+    }
+
+    public void clearConversionHistory(String email) {
+        Users user = usersRepository.findByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with email: " + email));
+        user.setNrOfFilesConvertedPerMonth(0);
+        usersRepository.save(user);
     }
 
 

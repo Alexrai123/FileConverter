@@ -20,4 +20,6 @@ public class UsersDTO {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date subscriptionStartDate;
 
+    private Integer nrOfFilesConvertedPerMonth;
+
 }

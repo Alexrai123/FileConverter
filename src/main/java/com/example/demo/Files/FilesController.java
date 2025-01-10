@@ -10,7 +10,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-//@Controller
 @RequiredArgsConstructor
 @RequestMapping("/files")
 public class FilesController {

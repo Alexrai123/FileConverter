@@ -42,9 +42,9 @@ public class SubscriptionTypeController {
         return subscriptionTypeService.update(idSubscriptionType, subscriptionTypeDTO);
     }
 
+
     @DeleteMapping("/{idSubscriptionType}")
     public void delete(@PathVariable Integer idSubscriptionType) throws Exception {
         subscriptionTypeService.delete(idSubscriptionType);
     }
-
 }
