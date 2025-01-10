@@ -1,0 +1,14 @@
+package com.example.demo.SubscriptionType;
+
+public class ChangeSubscriptionRequest {
+    private String subscriptionType;
+
+    // Getters și Setters
+    public String getSubscriptionType() {
+        return subscriptionType;
+    }
+
+    public void setSubscriptionType(String subscriptionType) {
+        this.subscriptionType = subscriptionType;
+    }
+}

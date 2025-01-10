@@ -17,9 +17,14 @@ public class UsersDTO {
 
     private String subscriptionType;
 
+    private double price; // Prețul abonamentului
+
+    private int fileSizeLimit; // Limita pentru dimensiunea fișierului
+
+    private int fileNumberLimitPerDay; // Limita pentru numărul de fișiere pe zi
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date subscriptionStartDate;
 
     private Integer nrOfFilesConvertedPerMonth;
-
 }
